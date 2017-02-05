@@ -7,51 +7,53 @@ from MyState import MyState
 from MyAction import MyAction
 
 
-## Strategie aleatoire
+## Random Strategy
 class RandomStrategy(Strategy):
     def __init__(self):
         Strategy.__init__(self,"Random")
     def compute_strategy(self,state,id_team,id_player):
         return SoccerAction(Vector2D.create_random(),Vector2D.create_random())
 
-
-## Strategie aleatoire
-class StraightStrategy(Strategy):
-    def __init__(self):
-        Strategy.__init__(self,"Straight")
-    def compute_strategy(self,state,id_team,id_player):
-    	ball = state.ball
-    	pos_ball = ball.position
-    	state_player = state.player_state(id_team, id_player)
-    	pos_player = state_player.position
-    	acc = (pos_ball - pos_player).normalize()
-    	if pos_player.distance(pos_ball) <= (settings.PLAYER_RADIUS + settings.BALL_RADIUS):
-    		shoot = acc
-    		acc = Vector2D()
-    	else: 
-    		shoot = None
-    	# print ball.vitesse
-        return SoccerAction(acc,shoot)
-
 class StraightStrategy1(Strategy):
     def __init__(self):
         Strategy.__init__(self,"Straight")
     def compute_strategy(self,state,id_team,id_player):
         mystate = MyState(state)
+        myaction = MyAction()
         pos_ball = mystate.get_posBall()
-        pos_player = mystate.get_posPlayer()
-        if pos_player.distance(pos_ball) <= (settings.PLAYER_RADIUS + settings.BALL_RADIUS):
-            return go(pos_player, pos_ball)
+        pos_player = mystate.get_posPlayer(id_team, id_player)
+        if not myaction.canKick(pos_player, pos_ball):
+            return myaction.go(pos_player, pos_ball)
         else: 
-            return shoot(pos_player)
+            return myaction.kick(pos_player, pos_ball)
+
+class StraightStrategy2(Strategy):
+    def __init__(self):
+        Strategy.__init__(self,"Straight")
+    def compute_strategy(self,state,id_team,id_player):
+        mystate = MyState(state)
+        myaction = MyAction()
+        pos_ball = mystate.get_posBall()
+        pos_player = mystate.get_posPlayer(id_team, id_player)
+        pos_goal = mystate.get_posGoal(id_team)
+        if myaction.canShoot(pos_player, pos_ball, pos_goal):
+            print "shooting the ball"
+            return myaction.shoot(pos_player, pos_goal)
+
+        if not myaction.canKick(pos_player, pos_ball):
+            print "player's velocity is "
+            print mystate.get_vitPlayer(id_team, id_player)
+            return myaction.go(pos_player, pos_ball)
+        else: 
+            return myaction.kick(pos_player, pos_ball)
 
 if __name__ == '__main__':
     ## Creation d'une equipe
     team1 = SoccerTeam(name="team1",login="etu1")
     team2 = SoccerTeam(name="team2",login="etu2")
-    team1.add("John",StraightStrategy()) 
-    team2.add("Paul",RandomStrategy())   #Strategie aleatoire
-    team2.add("Thomas",RandomStrategy())   #Strategie aleatoire
+    team1.add("John",StraightStrategy1()) 
+    team2.add("Paul",RandomStrategy())  
+    team2.add("Thomas",RandomStrategy())  
 
     #Creation d'une partie
     simu = Simulation(team1,team2)

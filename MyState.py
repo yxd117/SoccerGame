@@ -1,3 +1,6 @@
+from soccersimulator.utils import Vector2D
+from soccersimulator import settings
+
 class MyState:
 	def __init__(self, state):
 		self.state = state
@@ -12,14 +15,27 @@ class MyState:
 	def get_posPlayer(self, id_team, id_player):
 		return self.get_statePlayer(id_team, id_player).position
 	def get_vitPlayer(self, id_team, id_player):
-		return self.get_statePlayer(id_team, id_player).vitesse
+		return self.get_statePlayer(id_team, id_player).vitesse	
+	@staticmethod
+	def get_posGoal(id_team, pos = "middle"):
+		game_height = settings.GAME_HEIGHT
+		goal_height = settings.GAME_GOAL_HEIGHT
+		if id_team == "team1":
+			width = 0
+		else:
+			width = settings.GAME_WIDTH
+		if pos == "left" : 
+			height = game_height / 2 - goal_height / 2
+		elif pos == "right" :
+			height = game_height / 2 + goal_height / 2;
+		else :
+			height = game_height / 2 ;
+		return Vector2D(width, height)
+	#Help Function
+	@staticmethod
+	def get_vecDist(pos1, pos2):
+		return pos2 - pos1
 
-#Help Function
-def get_vecDist(self, pos1, pos2):
-	return pos2 - pos1
-def get_posGoal(id_team):
-	if id_team == "team1":
-		return Vector2D(0, 45)
-	else:
-		return Vector2D(150, 45)
+
+
 
