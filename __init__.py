@@ -1,8 +1,15 @@
 from soccersimulator.mdpsoccer import SoccerTeam
-from MyStrategy import StraightStrategy, RandomStrategy
-
-team1 = SoccerTeam(name="team1",login="etu1")
-team2 = SoccerTeam(name="team2",login="etu2")
-team1.add("John",StraightStrategy2()) 
-team2.add("Paul",StraightStrategy1())   
-team2.add("Thomas",StraightStrategy2()) 
+from MyStrategy import StraightStrategy, RandomStrategy 
+def get_team(i):
+	team = SoccerTeam(name="team",login="etu1")
+	if i == 1:
+		team.add("Mike",StraightStrategy2())
+	elif i == 2:
+		team.add("Mike",StraightStrategy2())
+		team.add("Paul",StraightStrategy2())
+	elif i == 4:
+		team.add("Mike",StraightStrategy2())
+		team.add("Paul",StraightStrategy2())
+		team.add("Thomas",StraightStrategy2())
+		team.add("Jim",StraightStrategy2())
+	return team

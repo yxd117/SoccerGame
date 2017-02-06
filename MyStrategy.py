@@ -23,8 +23,12 @@ class StraightStrategy1(Strategy):
         pos_ball = mystate.get_posBall()
         pos_player = mystate.get_posPlayer(id_team, id_player)
         if not myaction.canKick(pos_player, pos_ball):
+            print "going to the ball!"
+            # print pos_player.distance(pos_ball)
+            # print (settings.PLAYER_RADIUS + settings.BALL_RADIUS) + 0.5
             return myaction.go(pos_player, pos_ball)
-        else: 
+        else:
+            print "kicking the ball!" 
             return myaction.kick(pos_player, pos_ball)
 
 class StraightStrategy2(Strategy):
@@ -41,11 +45,13 @@ class StraightStrategy2(Strategy):
             return myaction.shoot(pos_player, pos_goal)
 
         if not myaction.canKick(pos_player, pos_ball):
-            print "player's velocity is "
-            print mystate.get_vitPlayer(id_team, id_player)
+            # print "player's velocity is "
+            # print mystate.get_vitPlayer(id_team, id_player)
+            print "going to the ball!"
             return myaction.go(pos_player, pos_ball)
         else: 
-            return myaction.kick(pos_player, pos_ball)
+            print "kicking to the ball!"
+            return myaction.kick(pos_player, pos_goal)
 
 if __name__ == '__main__':
     ## Creation d'une equipe

@@ -20,7 +20,7 @@ class MyState:
 	def get_posGoal(id_team, pos = "middle"):
 		game_height = settings.GAME_HEIGHT
 		goal_height = settings.GAME_GOAL_HEIGHT
-		if id_team == "team1":
+		if id_team == 2:
 			width = 0
 		else:
 			width = settings.GAME_WIDTH
