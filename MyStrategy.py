@@ -24,16 +24,16 @@ class StraightStrategy1(Strategy):
         pos_player = mystate.get_posPlayer(id_team, id_player)
         pos_goal = mystate.get_posGoal(id_team)
         if myaction.canShoot(pos_player, pos_ball, pos_goal):
-            print "shooting the ball"
+            # print "shooting the ball"
             return myaction.shoot(pos_player, pos_goal)
 
         if not myaction.canKick(pos_player, pos_ball):
             # print "player's velocity is "
             # print mystate.get_vitPlayer(id_team, id_player)
-            print "going to the ball!"
+            # print "going to the ball!"
             return myaction.go(pos_player, pos_ball)
         else: 
-            print "kicking to the ball!"
+            # print "kicking to the ball!"
             return myaction.kick(pos_player, pos_goal)
 class StraightStrategy2(Strategy):
     def __init__(self):
@@ -46,16 +46,16 @@ class StraightStrategy2(Strategy):
         pos_teammate = mystate.get_posPlayer(id_team, id_player + 1)
         pos_goal = mystate.get_posGoal(id_team)
         if myaction.canShoot(pos_player, pos_ball, pos_goal):
-            print "shooting the ball"
+            # print "shooting the ball"
             return myaction.shoot(pos_player, pos_goal)
 
         if not myaction.canKick(pos_player, pos_ball):
             # print "player's velocity is "
             # print mystate.get_vitPlayer(id_team, id_player)
-            print "going to the ball!"
+            # print "going to the ball!"
             return myaction.go(pos_player, pos_ball, 2)
         else: 
-            print "kicking to the ball!"
+            # print "kicking to the ball!"
             # return myaction.kick(pos_player, pos_goal)
             return myaction.kick(pos_player, pos_teammate, 5)
 
@@ -72,13 +72,13 @@ class StraightStrategy3(Strategy):
         pos_shoot = mystate.get_posShoot(id_team, id_player)
         # print str(id_player) + ' ' + str(pos_player) + ' ' + str(pos_shoot)
         if myaction.canShoot(pos_player, pos_ball, pos_goal):
-            print "shooting the ball"
+            # print "shooting the ball"
             return myaction.shoot(pos_player, pos_goal)
 
         if not myaction.reachPosition(pos_player, pos_shoot):
             # print "player's velocity is "
             # print mystate.get_vitPlayer(id_team, id_player)
-            print "going to the point!"
+            # print "going to the point!"
             # print str(pos_player) + " to " + str(pos_shoot) + '\n'
             return myaction.go(pos_player, pos_shoot, 0.5)
         else :
